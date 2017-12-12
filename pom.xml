@@ -1,92 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+ http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.scijava</groupId>
-		<artifactId>pom-scijava</artifactId>
-		<version>1.51</version>
-	</parent>
+  <parent>
+    <groupId>net.imagej</groupId>
+    <artifactId>pom-imagej</artifactId>
+    <version>14.8.0</version>
+    <relativePath />
+  </parent>
 
 	<groupId>sc.fiji</groupId>
-	<artifactId>FeaturesMatching</artifactId>
+	<artifactId>imagej-features-matching_</artifactId>
 	<version>1.2.0</version>
 
-	<name>plugins/FeaturesMatching_.jar</name>
+	<name>plugins/imagej-features-matching.jar</name>
 	<description>Track a set of points of interest (or features) using template matching method (normalized cross-correlation).</description>
 
-	<dependencies>
-		<dependency>
-			<groupId>net.imagej</groupId>
-			<artifactId>ij</artifactId>
-			<version>${imagej1.version}</version>
-		</dependency>
-	</dependencies>
+  <developers>
+      <developer>
+          <id>ies-julien</id>
+          <name>Julien Pontabry</name>
+          <email>julien.pontabry@helmholtz-muenchen.de</email>
+          <url></url>
+          <organization>Helmholtz Institute of Epigenetics and Stem cells</organization>
+          <organizationUrl>http://www.helmholtz-muenchen.de/ies/index.html</organizationUrl>
+          <roles>
+              <role>founder</role>
+              <role>lead</role>
+              <role>developer</role>
+              <role>debugger</role>
+              <role>reviewer</role>
+              <role>support</role>
+              <role>maintainer</role>
+          </roles>
+          <timezone>+1</timezone>
+      </developer>
+  </developers>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>${project.build.sourceDirectory}</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>${basedir}/src/test/resources</directory>
-			</testResource>
-			<testResource>
-				<directory>${project.build.testSourceDirectory}</directory>
-			</testResource>
-		</testResources>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>Features_Matching</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  <contributors>
+      <!--
+      NB: Need a least one element to override the parent.
+      See: https://issues.apache.org/jira/browse/MNG-5220
+      -->
+      <contributor><name>None</name></contributor>
+  </contributors>
 
-	<developers>
-		<developer>
-			<id>jpontabry</id>
-			<name>Julien Pontabry</name>
-			<email>pontabry@igbmc.fr</email>
-			<url>http://www.igbmc.fr</url>
-			<organization>IGBMC</organization>
-			<organizationUrl>http://www.igbmc.fr</organizationUrl>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
+  <!-- <scm>
+		<connection>scm:git:git://github.com/IES-HelmholtzZentrumMunchen/imagej-nlm-denoising</connection>
+		<developerConnection>scm:git:git@github.com:IES-HelmholtzZentrumMunchen/imagej-nlm-denoising</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/IES-HelmholtzZentrumMunchen/imagej-nlm-denoising</url>
+	</scm> -->
 
-	<!-- NB: for project parent -->
-	<repositories>
-		<repository>
-			<id>imagej.releases</id>
-			<url>http://maven.imagej.net/content/repositories/releases</url>
-		</repository>
-		<repository>
-			<id>imagej.snapshots</id>
-			<url>http://maven.imagej.net/content/repositories/snapshots</url>
-		</repository>
-	</repositories>
+  <properties>
+    <main-class>Features_Matching</main-class>
+  </properties>
 
+  <dependencies>
+      <!-- ImageJ dependencies -->
+      <dependency>
+          <groupId>net.imagej</groupId>
+          <artifactId>ij</artifactId>
+      </dependency>
+      <!-- JUnit dependencies -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+      </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${main-class}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+      <!-- NB: for project parent, in case of partial checkout -->
+      <repository>
+          <id>imagej.public</id>
+          <url>http://maven.imagej.net/content/groups/public</url>
+      </repository>
+  </repositories>
+
+  <organization>
+    <name>Helmholtz Institute of Epigenetics and Stem cells</name>
+    <url>http://www.helmholtz-muenchen.de/ies/index.html</url>
+  </organization>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>net.imagej</groupId>
+        <artifactId>ij</artifactId>
+        <version>1.51e</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
